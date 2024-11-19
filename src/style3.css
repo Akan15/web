@@ -1,0 +1,121 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.5s, color 0.5s; /* Smooth transition for theme change */
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    z-index: 1000;
+}
+
+header nav a {
+    font-size: 16px;
+    text-decoration: none; /* Remove underline */
+    margin: 0 20px;
+    color: white; /* Set color for links */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+
+/* Accordion Container */
+.accordion-container {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 50px; /* This will push the accordion section down */
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Accordion Item */
+.accordion-item {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.accordion-button {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.accordion-button:hover {
+    background-color: #555;
+}
+
+/* Accordion Content */
+.accordion-content {
+    background-color: #f9f9f9;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 15px;
+}
+
+.accordion-content p {
+    padding: 15px 0;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 100px;
+    padding: 15px;
+}
+
+/* Button to Change Background Color */
+.color-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#changeColorBtn, #toggleThemeBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #333;
+    color: #f1f1f1;
+}
+
+body.dark-mode header {
+    background-color: #444;
+}
+
+body.dark-mode .accordion-button {
+    background-color: #444;
+    color: #f1f1f1;
+}
+
+body.dark-mode .accordion-button:hover {
+    background-color: #666;
+}
+
+body.dark-mode .accordion-content {
+    background-color: #555;
+    border-left-color: #888;
+}

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rentals | Home</title>
+    <link rel="stylesheet" href="style1.css">
+    <script src="script.js"></script>
+    <script src="scripts.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="header-image-container">
+    <img src="img/mainpho.jpg" alt="Car Rental Banner" id="header-image">
+</div>
+<header class="bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Car Rentals</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="text.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="available-cars.html">Available Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+                <div id="account-icon" class="rounded-circle bg-secondary d-flex justify-content-center align-items-center ms-3" style="width: 40px; height: 40px; cursor: pointer;">
+                    <i class="bi bi-person text-white"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required class="form-control"><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required class="form-control"><br>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                    <p id="loginError" style="color: red;"></p>
+                </form>
+
+                <button id="registerBtn" class="btn btn-secondary mt-3">Register</button>
+
+                <!-- Кнопки смены цвета и темы -->
+                <div class="color-button-container mt-4">
+                    <button id="changeColorBtn" class="btn btn-primary">Change Color</button>
+                    <button id="toggleThemeBtn" class="btn btn-secondary">Light/Dark</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<main>
+    <section id="about">
+        <div class="about-container">
+            <div class="logo">
+                <img src="img/zdlogo.png" alt="Car Rentals Logo">
+            </div>
+            <div class="about-text">
+                <h2>About Us</h2>
+                <p>Компания ZenDrive более 5 лет работает на рынке проката автомобилей, предлагая клиентам современные и надежные машины. Мы стремимся обеспечить комфорт и удобство в каждой поездке, предлагая широкий выбор автомобилей, подходящих для любых целей. Наша миссия — сделать ваше путешествие легким и приятным, будь то деловая поездка или семейный отдых.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <p><strong>Working Hours:</strong> Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p><strong>Address:</strong> 1 Dostyk St., Astana, Kazakhstan</p>
+                <p><strong>Email:</strong> infozendrive@gmail.com</p>
+                <p><strong>Phone:</strong> +7 (777) 777-77-77</p>
+            </div>
+            <div class="contact-form">
+                <h2>Contact Us</h2>
+                <form id="contactForm" action="submit_form.html" method="post" onsubmit="return validateForm()">
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name"><br>
+                    <span id="nameError" style="color: red;"></span><br>
+
+                    <label for="email">Email:</label><br>
+                    <input type="text" id="email" name="email"><br>
+                    <span id="emailError" style="color: red;"></span><br>
+
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message"></textarea><br>
+                    <span id="messageError" style="color: red;"></span><br>
+
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+<script>
+    // Скрипт для открытия модального окна по клику на значок аккаунта
+    document.getElementById('account-icon').addEventListener('click', function() {
+        var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+    });
+
+    // Функция для входа
+    function validateLogin() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const loginError = document.getElementById('loginError');
+        let isValid = true;
+
+        // Сброс сообщений об ошибках
+        loginError.textContent = "";
+
+        // Проверка на пустые поля
+        if (!username) {
+            loginError.textContent = "Username is required.";
+            isValid = false;
+        } else if (!password) {
+            loginError.textContent = "Password is required.";
+            isValid = false;
+        } else {
+            const users = JSON.parse(localStorage.getItem('users')) || {
+                "admin": "admin123",
+                "user": "user123",
+                "guest": "guest123"
+            };
+
+            if (!users[username]) {
+                loginError.textContent = "Username not found. Please register.";
+                isValid = false;
+            } else if (users[username] !== password) {
+                loginError.textContent = "Invalid password.";
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            alert(`Welcome, ${username}!`);
+            const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            loginModal.hide();
+
+            // Сохранить текущего пользователя в localStorage
+            localStorage.setItem('currentUser', username);
+
+            // Поменять кнопку Login на Logout
+            toggleLoginLogout(true);
+        }
+
+        return isValid;
+    }
+
+    // Функция для регистрации нового пользователя
+    function registerNewUser() {
+        const username = prompt("Enter a new username:");
+        const password = prompt("Enter a new password:");
+
+        if (username && password) {
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+
+            if (users[username]) {
+                alert("User already exists. Please choose a different username.");
+                return;
+            }
+
+            users[username] = password;
+            localStorage.setItem('users', JSON.stringify(users));
+            alert(`User ${username} registered successfully!`);
+        } else {
+            alert("Registration canceled or invalid input.");
+        }
+    }
+
+    // Функция для выхода из аккаунта
+    function logoutUser() {
+        // Удалить текущего пользователя из localStorage
+        localStorage.removeItem('currentUser');
+
+        // Очистить поля ввода имени пользователя и пароля
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+
+        // Поменять кнопку Logout на Login
+        toggleLoginLogout(false);
+
+        // Показать уведомление о выходе
+        alert('You have been logged out.');
+    }
+
+    // Функция переключения кнопок Login и Logout
+    function toggleLoginLogout(isLoggedIn) {
+        const loginButton = document.querySelector('#loginForm button[type="submit"]:first-child');
+        const logoutButton = document.querySelector('#loginForm button[type="submit"]:last-child');
+
+        if (isLoggedIn) {
+            loginButton.style.display = 'none';
+            logoutButton.style.display = 'block';
+        } else {
+            loginButton.style.display = 'block';
+            logoutButton.style.display = 'none';
+        }
+    }
+
+    // Привязка событий к кнопкам
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Проверяем, какая кнопка была нажата
+        const submitButton = document.activeElement;
+        if (submitButton.textContent === 'Login') {
+            validateLogin();
+        } else if (submitButton.textContent === 'Logout') {
+            logoutUser();
+        }
+    });
+
+    // Обработчик для кнопки регистрации
+    document.getElementById('registerBtn').addEventListener('click', registerNewUser);
+
+    // Проверка текущего пользователя при загрузке страницы
+    window.addEventListener('load', function () {
+        const currentUser = localStorage.getItem('currentUser');
+        toggleLoginLogout(!!currentUser); // Переключение кнопок в зависимости от статуса пользователя
+    });
+
+
+
+
+    // Функция валидации формы контактов
+    function validateForm() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        let isValid = true;
+
+        document.getElementById('nameError').textContent = name ? '' : 'Name is required.';
+        document.getElementById('emailError').textContent = email ? '' : 'Email is required.';
+        document.getElementById('messageError').textContent = message ? '' : 'Message is required.';
+
+        if (!name || !email || !message) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+
+
+    // Восстанавливаем фильтр при загрузке страницы
+    window.addEventListener('load', function() {
+        const savedFilter = localStorage.getItem('carFilter') || 'all';
+        filterCars(savedFilter);
+    });
+
+    // Массив цветов
+    const colors = ['#DC143C', '#FF8C00', '#FFFFFF', '#006400', '#00008B'];
+    let currentColorIndex = 0;
+
+    // Функция для смены цвета фона
+    function changeBackgroundColor() {
+        document.body.style.backgroundColor = colors[currentColorIndex];
+        currentColorIndex = (currentColorIndex + 1) % colors.length; // Цикл цветов
+        localStorage.setItem('backgroundColor', colors[currentColorIndex]);
+    }
+
+
+
+    // Функция для переключения светлой и тёмной темы
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        document.querySelector('.modal-content').classList.toggle('dark-mode');
+        const currentTheme = document.body.classList.contains('dark-mode') ? 'dark-mode' : '';
+        localStorage.setItem('theme', currentTheme);
+    }
+
+    // Устанавливаем цвет и тему при загрузке страницы
+    window.addEventListener('load', () => {
+        const savedColor = localStorage.getItem('backgroundColor');
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedColor) {
+            document.body.style.backgroundColor = savedColor;
+        }
+
+        if (savedTheme) {
+            document.body.classList.add(savedTheme);
+            document.querySelector('.modal-content').classList.add(savedTheme);
+        }
+    });
+
+    // Привязываем обработчики к кнопкам
+    document.getElementById('changeColorBtn').addEventListener('click', changeBackgroundColor);
+    document.getElementById('toggleThemeBtn').addEventListener('click', toggleTheme);
+
+
+</script>
+</body>
+</html>
+

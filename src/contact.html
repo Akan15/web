@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion for FAQs</title>
+    <link rel="stylesheet" href="style3.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header class="bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Car Rentals</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="text.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="available-cars.html">Available Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="accordion-container">
+    <h2>Frequently Asked Questions</h2>
+
+    <!-- Current Date and Time Display -->
+    <div id="current-date-time" class="text-center" style="padding: 10px; font-size: 16px;"></div>
+
+    <!-- Button to Show Current Time -->
+    <div class="text-center my-3">
+        <button id="showTimeButton" class="btn btn-primary">Show Current Time</button>
+        <div id="current-time-display" style="margin-top: 10px; font-size: 18px; color: darkblue;"></div>
+    </div>
+
+    <div class="accordion">
+        <div class="accordion-item">
+            <button class="accordion-button">What is Car Rentals?</button>
+            <div class="accordion-content">
+                <p>Car Rentals is a service providing top-quality vehicles to customers for more than 10 years. We aim to make your travels convenient and comfortable.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-button">How do I book a car?</button>
+            <div class="accordion-content">
+                <p>You can book a car through our website by filling out a form and selecting your desired car and rental duration.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-button">What are your working hours?</button>
+            <div class="accordion-content">
+                <p>We operate from Monday to Friday, 9:00 AM to 6:00 PM.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Function to update the current date and time
+    function updateDateTime() {
+        const now = new Date();
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        };
+
+        const formattedDate = now.toLocaleString('ru-KZ', options);
+        document.getElementById('current-date-time').innerText = formattedDate;
+    }
+
+    window.onload = function() {
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Load theme preference from localStorage
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme) {
+            document.body.className = storedTheme;
+        }
+    };
+
+    // Display the current time when button is clicked
+    document.getElementById('showTimeButton').addEventListener('click', function() {
+        const currentTime = new Date().toLocaleTimeString();
+        document.getElementById('current-time-display').innerText = `Current Time: ${currentTime}`;
+    });
+
+    // Keyboard event to show time on pressing Enter
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const currentTime = new Date().toLocaleTimeString();
+            document.getElementById('current-time-display').innerText = `Current Time: ${currentTime}`;
+        }
+    });
+
+    // Accordion functionality
+    document.querySelectorAll('.accordion-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const accordionItem = button.parentElement;
+            const accordionContent = accordionItem.querySelector('.accordion-content');
+
+            if (accordionItem.classList.contains('active')) {
+                accordionContent.style.display = 'none';
+                accordionItem.classList.remove('active');
+            } else {
+                document.querySelectorAll('.accordion-item.active').forEach(activeItem => {
+                    activeItem.querySelector('.accordion-content').style.display = 'none';
+                    activeItem.classList.remove('active');
+                });
+                accordionContent.style.display = 'block';
+                accordionItem.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
+
